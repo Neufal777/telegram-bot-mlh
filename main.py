@@ -1,8 +1,9 @@
 from telegram import Update
+import os
 from telegram.ext import ApplicationBuilder, Updater, CommandHandler, CallbackContext, MessageHandler, filters, ContextTypes
 
 # define your bot token
-BOT_TOKEN = "YOUR_BOT_TOKEN"
+BOT_TOKEN = os.getenv("BOT_TOKEN") or ""
 
 # define the start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
