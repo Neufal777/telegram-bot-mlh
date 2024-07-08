@@ -1,6 +1,6 @@
 # telegram-bot-mlh
 
-## Setup
+## Setup:
 
 1. **Clone the Repository:**
    ```bash
@@ -32,11 +32,11 @@
    python main.py
    ```
 
-## Bot Commands
+## Bot Commands:
 
 - `/start` - Starts the bot and greets the user.
 - Any other text message will be echoed back to the user.
 
-## Contributing
+## Contributing:
 
 Feel free to fork this repository, make improvements, and submit pull requests.
