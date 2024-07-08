@@ -1,40 +1,47 @@
-from telegram import Update
 import os
-from telegram.ext import ApplicationBuilder, Updater, CommandHandler, CallbackContext, MessageHandler, filters, ContextTypes
+from dotenv import load_dotenv
+from telegram import Update
+from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, filters, ContextTypes
 
-# define your bot token
-BOT_TOKEN = os.getenv("BOT_TOKEN") or ""
+# Load environment variables from the .env file
+load_dotenv()
 
-# define the start command handler
+# Get the bot token from environment variables
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+
+
+# Define the start command handler
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    print("Update user:", update.message.from_user)
-    
-    # check if the user is webslingr, if so, greet them
-    if update.message.from_user.username == "webslingr":
-        print("Hello, webslingr!")
-        await update.message.reply_text("Hello, webslingr!")
-    
+    user = update.message.from_user
+   
     await update.message.reply_text("Major League Hacking is the best one! #1!")
+    await update.message.reply_text(f"Hello, {user.username}")
 
-# define the echo command handler
+# Define the echo command handler
 async def echo(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
-    print("Update user:", update.message.from_user, "Update text:", update.message.text)
-    await update.message.reply_text(update.message.text)
+    print(context)
+    user = update.message.from_user
+    text = update.message.text
+    await update.message.reply_text(text)
 
-# define the main function
+# Define the main function
 def main() -> None:
-    # create the application and pass it the bot token
+    if not BOT_TOKEN:
+        print("BOT_TOKEN is not set in the environment variables.")
+        return
+    
+    # Create the application and pass it the bot token
     application = ApplicationBuilder().token(BOT_TOKEN).build()
 
-    # register the start command handler
+    # Register the start command handler
     application.add_handler(CommandHandler("start", start))
 
-    # register the echo command handler
+    # Register the echo command handler
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, echo))
     
-    # start the bot
+    # Start the bot
     application.run_polling()
 
-# run the main function
+# Run the main function
 if __name__ == "__main__":
     main()
