@@ -2,6 +2,7 @@ import requests
 import json
 from bs4 import BeautifulSoup
 
+
 def get_games_from_coolmathgames():
     # Send a GET request to the Cool Math Games new games page
     response = requests.get('https://www.coolmathgames.com/1-new-games')
