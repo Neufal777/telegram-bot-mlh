@@ -6,6 +6,10 @@ from telegram.ext import ApplicationBuilder, CommandHandler, MessageHandler, fil
 # Load environment variables from the .env file
 load_dotenv()
 
+# Set up logging
+logging.basicConfig(format='%(asctime)s - %(name)s - %(levelname)s - %(message)s', level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Get the bot token from environment variables
 BOT_TOKEN = os.getenv('BOT_TOKEN')
 
